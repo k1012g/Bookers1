@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+    <div class="index-box">
+	    <% if flash[:notice] %>
+	        <p class="flash-message"><%= flash[:notice] %></p>
+	    <% end %>
+    	<h1 class="font">Books</h1>
+			<table>
+				<tr>
+					<th class="title font">Title</th>
+					<th class="body font">Body</th>
+				</tr>
+			 	<% @books.each do |book| %>
+				 	<tr>
+						<td class="title-td"><%= book.title %></td>
+						<td class="body-td"><%= book.body %></td>
+						<td><%= link_to "Show", book_path(book) %></td>
+						<td><%= link_to "Edit", edit_book_path(book) %></td>
+						<td><%= link_to "Destroy",book_path(book.id), method: :delete,data: {confirm: "Are you sure?"} %></td>
+					</tr>
+				<% end %>
+			</table>
+			<% if @book.errors.any? %>
+				<ul>
+					<% @book.errors.full_messages.each do |message| %>
+					<li class="errors-list"><%= message %></li>
+					<% end %>
+				</ul>
+			<% end %>
+			<%= form_for(@book, url: '/books') do |f| %>
+				<div class="form-box">
+					<h2 class="new-book font">New book</h2>
+					    <p class="title-form font">Title</p>
+					    <%= f.text_field :title %>
+					    <p class="body-form font">Body</p>
+					    <%= f.text_area :body %>
+					    <%= f.submit 'Create Book' %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</body>
+</html>

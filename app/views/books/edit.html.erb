@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<div class="edit-box">
+		<div class="edit-sub-box">
+			<h1 class="font">Editing Book</h1>
+			<% if @book.errors.any? %>
+				<ul class="errors">
+					<% @book.errors.full_messages.each do |message| %>
+					<li class="errors-list"><%= message %></li>
+					<% end %>
+				</ul>
+			<% end %>
+			<%= form_for(@book) do |f| %>
+			    <p class="edit-title">Title</p>
+			    <%= f.text_field :title %>
+			    <p class="edit-body">Body</p>
+			    <%= f.text_area :body %>
+			    <%= f.submit 'Update Book' %>
+			    <div class="links">
+					<%= link_to "Show", book_path%>
+				    <span>|</span>
+				    <%= link_to "Back", books_path %>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</body>
+</html>
